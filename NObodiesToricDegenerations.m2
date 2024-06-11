@@ -42,16 +42,16 @@ linealityT = linealitySpace(T)
 
 -- Computing cones containing the weights of the three matching fields
 
-for i from 0 to #ConesT-1 do(
-    if contains(coneFromVData(submatrix(RaysT,ConesT#i), LinealityT), transpose(weightTau) ) then( print(i); break)
+for i from 0 to #conesT-1 do(
+    if contains(coneFromVData(submatrix(raysT,conesT#i), linealityT), transpose(weightTau) ) then( print(i); break)
 )
 
-for i from 0 to #ConesT-1 do(
-    if contains(coneFromVData(submatrix(RaysT,ConesT#i), LinealityT), transpose(weightIntermediate) ) then( print(i); break)
+for i from 0 to #conesT-1 do(
+    if contains(coneFromVData(submatrix(raysT,conesT#i), linealityT), transpose(weightIntermediate) ) then( print(i); break)
 )
 
-for i from 0 to #ConesT-1 do(
-    if contains(coneFromVData(submatrix(RaysT,ConesT#i), LinealityT), transpose(weightSigma) ) then( print(i); break)
+for i from 0 to #conesT-1 do(
+    if contains(coneFromVData(submatrix(raysT,conesT#i), linealityT), transpose(weightSigma) ) then( print(i); break)
 )
 
 -- weightSigma in cone 17
@@ -60,29 +60,29 @@ for i from 0 to #ConesT-1 do(
 
 --Rays of these cones
 
-ConesT#17 -- 12, 46, 53, 54
-ConesT#138 -- 12, 28, 46, 53
-ConesT#1 -- 46, 51, 53, 54
+conesT#17 -- 12, 46, 53, 54
+conesT#138 -- 12, 28, 46, 53
+conesT#1 -- 46, 51, 53, 54
 
--Looking for adjacent non-prime cones
-for i from 0 to #ConesT -1 do(
-    if isSubset( {46,53}, ConesT#i) == true then print(i)
+--Looking for adjacent non-prime cones
+for i from 0 to #conesT -1 do(
+    if isSubset( {46,53}, conesT#i) == true then print(i)
 )
 -- 1 (tau), 13, 17 (sigma), 106 (not prime), 116 (not prime), 124, 138, 142, 194, 206
 
-ConesT#13 -- 20, 46, 53, 54
-ConesT#194 -- 20, 41, 46, 53
-ConesT#206 -- 12, 41, 46, 53
+conesT#13 -- 20, 46, 53, 54
+conesT#194 -- 20, 41, 46, 53
+conesT#206 -- 12, 41, 46, 53
 
 
-ConesT#116 -- 28, 46, 53, 62 -- NOT PRIME, adjacent to INTERMEDIATE
-ConesT#124 -- 20, 28, 46, 53
-ConesT#106 -- 46, 51, 53, 62 -- NOT PRIME, adjacent to 116 and SIGMA
-ConesT#142 -- 41, 46, 51, 53
+conesT#116 -- 28, 46, 53, 62 -- NOT PRIME, adjacent to INTERMEDIATE
+conesT#124 -- 20, 28, 46, 53
+conesT#106 -- 46, 51, 53, 62 -- NOT PRIME, adjacent to 116 and SIGMA
+conesT#142 -- 41, 46, 51, 53
 
 -- Find all non-prime cones
-for i from 0 to #ConesT-1 do(
-    weightcone = entries transpose interiorVector(coneFromVData(submatrix(RaysT,ConesT#i), LinealityT));
+for i from 0 to #conesT-1 do(
+    weightcone = entries transpose interiorVector(coneFromVData(submatrix(raysT,conesT#i), linealityT));
     Rweight = QQ[p_(0,1,2), p_(0,1,3), p_(0,1,4), p_(0,1,5), p_(0,2,3), p_(0,2,4), p_(0,2,5), p_(0,3,4), p_(0,3,5), p_(0,4,5), p_(1,2,3), p_(1,2,4), p_(1,2,5), p_(1,3,4), p_(1,3,5), p_(1,4,5), p_(2,3,4), p_(2,3,5), p_(2,4,5), p_(3,4,5), Weights=>-weightcone, Global=>false];
     initialideal = ideal leadTerm(1, Grassmannian(2,5,Rweight));
     if isPrime initialideal == false then print(i)
@@ -91,7 +91,7 @@ for i from 0 to #ConesT-1 do(
 nonprime = {105, 106, 107, 108, 109, 110, 111, 112, 113, 115, 116, 117, 118, 119, 120, 121, 122, 135, 136, 178, 179, 180, 181, 182, 183, 184, 185, 1017, 1018, 1019, 1020, 1021, 1022, 1023, 1024, 1025, 1026, 1027, 1028, 1029, 1030, 1031, 1032, 1033, 1034}
 adjnonprime={}
 for i from 0 to #nonprime -1 do(
-    if isSubset( {46, 53}, ConesT#(nonprime#i) ) == true then adjnonprime = join(adjnonprime, (nonprime#i, ConesT#(nonprime#i)))
+    if isSubset( {46, 53}, conesT#(nonprime#i) ) == true then adjnonprime = join(adjnonprime, (nonprime#i, conesT#(nonprime#i)))
 )
 adjnonprime -- {(106, {46, 51, 53, 62}), (116, {28, 46, 53, 62})}
 
@@ -259,7 +259,7 @@ for i from 1 to 9 do(
 Mintersection =transpose((linealityIntersection|rays(intersectionCone))+Mtemp)
 rank(Mintersection) 
 
-Mtex = tex Mintersection
+
 --Matrix M is of full rank so the chosen interior vectors are indeed independent
 
 --To obtain the matrices of the adjacent cones we add an interior vector as a row to the bottom of M
